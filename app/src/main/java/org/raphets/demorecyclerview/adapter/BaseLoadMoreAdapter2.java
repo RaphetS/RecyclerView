@@ -3,6 +3,7 @@ package org.raphets.demorecyclerview.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 int    totalItemCount = linearLayoutManager.getItemCount();
                 int    lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
-                if (!isLoading &&dy>0&&lastVisibleItemPosition>=totalItemCount-2) {
+                if (!isLoading &&dy>0&&lastVisibleItemPosition>=totalItemCount-1) {
                     //此时是刷新状态
                     if (mOnLoadMoreListener != null) {
                         mOnLoadMoreListener.onLoadMore();
@@ -66,7 +67,7 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType==TYPE_ITEM){
-            View itemView= LayoutInflater.from(mContext).inflate(R.layout.item,parent,false);
+            View itemView= LayoutInflater.from(mContext).inflate(mLayoutId,parent,false);
             BaseViewHolder baseViewHolder=new BaseViewHolder(itemView);
             return baseViewHolder;
         }else {
@@ -93,20 +94,24 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
                   return true;
               }
           });
-
       }
     }
 
     @Override
     public int getItemViewType(int position) {
-        return mDatas.get(position)!=null?TYPE_ITEM:TYPE_PROGRESS;
+        if (position==getItemCount()-1){
+            return TYPE_PROGRESS;
+        }else {
+            return TYPE_ITEM;
+        }
     }
+
 
     public abstract void convert(Context mContext, RecyclerView.ViewHolder holder, T t);
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mDatas.size()+1;
     }
     public void setLoading(boolean b){
         isLoading=b;

@@ -5,7 +5,7 @@
     android:padding="20dp"
     android:layout_height="wrap_content">
 <ProgressBar
-    style="@android:style/Widget.ProgressBar.Small"
+    style="@android:style/Widget.Material.Light.ProgressBar.Small"
     android:id="@+id/pb"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />

@@ -94,8 +94,6 @@ public class PullRefreshActivity extends AppCompatActivity {
 
     private void loadMore() {
         page++;
-        mDatas.add(null);
-        mAdapter.notifyDataSetChanged();
         new Thread(){
             @Override
             public void run() {
@@ -114,7 +112,6 @@ public class PullRefreshActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mDatas.remove(mDatas.size()-1);
                         mAdapter.addAll(data);
                         mAdapter.setLoading(false);
                     }
