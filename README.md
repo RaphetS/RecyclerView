@@ -1,10 +1,10 @@
 ### 对RecyclerViewAdapter进行了封装，使用起来将更简单。
 
--##### 封装了OnItemClickListener，onLongItemClickListener
+- 封装了OnItemClickListener，onLongItemClickListener
 
--##### 封装了上拉加载OnLoadMoreListener
+* 封装了上拉加载OnLoadMoreListener
 
--##### 封装了HeadView
+- 封装了HeadView
 
 #######使用示例：
 
