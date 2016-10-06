@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:gravity="center"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-   <android.support.v7.widget.RecyclerView
-       android:id="@+id/rv"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+    <Button
+        android:id="@+id/btn_first"
+        android:textColor="@android:color/white"
+        android:text="可拖拽可滑动删除RecyclerView"
+        android:background="@android:color/holo_green_light"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <Button
+        android:id="@+id/btn_second"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:text="下拉刷新上拉加载RecyclerView"
+        android:background="@android:color/holo_green_light"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <Button
+        android:id="@+id/btn_third"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:text="下拉刷新上拉加载底部无提示RecyclerView"
+        android:background="@android:color/holo_green_light"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
 
-   </android.support.v7.widget.RecyclerView>
 </LinearLayout>

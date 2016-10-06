@@ -1,4 +1,4 @@
-package org.raphets.demorecyclerview;
+package org.raphets.demorecyclerview.adapter;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -13,10 +13,9 @@ import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class BaseViewHolder extends RecyclerView.ViewHolder {
+public class BaseViewHolder extends RecyclerView.ViewHolder {
     SparseArray<View> mViews;
     View mItemView;
-
 
     public BaseViewHolder(View itemView) {
         super(itemView);

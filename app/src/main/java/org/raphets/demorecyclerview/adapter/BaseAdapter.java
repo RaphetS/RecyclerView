@@ -1,4 +1,4 @@
-package org.raphets.demorecyclerview;
+package org.raphets.demorecyclerview.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,10 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import java.util.List;
 
 /**
  * Created by RaphetS on 2016/9/28.
+ * 普通的万能Adapter
+ * 支持onItemClick
+ * 支持onLongItemClick
  */
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     private Context mContext;
@@ -73,11 +77,12 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
 
     protected abstract void convert(Context mContext, BaseViewHolder holder, T t);
 
-    interface OnItemClickListener {
+
+    public    interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 
-    interface onLongItemClickListener {
+    public    interface onLongItemClickListener {
         void onLongItemClick(View view, int postion);
     }
 
