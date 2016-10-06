@@ -29,5 +29,13 @@
         android:background="@android:color/holo_green_light"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
+    <Button
+        android:id="@+id/btn_fourth"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:text="支持HeadView和上拉加载"
+        android:background="@android:color/holo_green_light"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
 
 </LinearLayout>

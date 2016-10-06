@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnDragSwipe;
     private Button btnPullRefresh;
     private Button btnPullRefreshNoTip;
+    private Button btnSupportHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +21,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnDragSwipe= (Button) findViewById(R.id.btn_first);
         btnPullRefresh= (Button) findViewById(R.id.btn_second);
         btnPullRefreshNoTip= (Button) findViewById(R.id.btn_third);
+        btnSupportHeader= (Button) findViewById(R.id.btn_fourth);
         btnDragSwipe.setOnClickListener(this);
         btnPullRefresh.setOnClickListener(this);
         btnPullRefreshNoTip.setOnClickListener(this);
+        btnSupportHeader.setOnClickListener(this);
     }
 
     @Override
@@ -36,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_third:
                 startActivity(new Intent(MainActivity.this,PullRefreshNoTipActivity.class));
+                break;
+            case R.id.btn_fourth:
+                startActivity(new Intent(MainActivity.this,SupportHeadViewActivity.class));
                 break;
             default:
                 break;

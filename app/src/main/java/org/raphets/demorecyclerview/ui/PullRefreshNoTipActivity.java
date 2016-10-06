@@ -7,9 +7,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import org.raphets.demorecyclerview.R;
+import org.raphets.demorecyclerview.adapter.BaseAdapter;
 import org.raphets.demorecyclerview.adapter.BaseLoadMoreAdapter;
+import org.raphets.demorecyclerview.adapter.BaseLoadMoreAdapter2;
 import org.raphets.demorecyclerview.adapter.BaseViewHolder;
 
 import java.util.ArrayList;
@@ -61,6 +65,13 @@ public class PullRefreshNoTipActivity extends AppCompatActivity {
             }
         });
 
+        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getApplicationContext(),position+"",Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     private void refreshData() {

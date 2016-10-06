@@ -3,7 +3,6 @@ package org.raphets.demorecyclerview.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import java.util.List;
  *  底部有进度条
  */
 
-public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
+public abstract class BaseLoadMoreHeaderAdapter<T> extends RecyclerView.Adapter {
     private Context mContext;
     private boolean isLoading=false;
     private OnLoadMoreListener mOnLoadMoreListener;
@@ -26,10 +25,12 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
     private onLongItemClickListener mLongItemClickListener;
     private List<T> mDatas;
     private int mLayoutId;
+    private View mHeadView;
+    private final static int TYPE_HEADVIEW=100;
     private final static int TYPE_ITEM=101;
     private final static int TYPE_PROGRESS=102;
 
-    public BaseLoadMoreAdapter2(Context mContext, RecyclerView recyclerView,List<T> mDatas, int mLayoutId) {
+    public BaseLoadMoreHeaderAdapter(Context mContext, RecyclerView recyclerView, List<T> mDatas, int mLayoutId) {
         this.mContext = mContext;
         this.mDatas = mDatas;
         this.mLayoutId = mLayoutId;
@@ -64,13 +65,19 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
         mDatas.addAll(data);
         notifyDataSetChanged();
     }
+    public void addHeadView(View headView){
+        mHeadView=headView;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType==TYPE_ITEM){
             View itemView= LayoutInflater.from(mContext).inflate(mLayoutId,parent,false);
             BaseViewHolder baseViewHolder=new BaseViewHolder(itemView);
             return baseViewHolder;
-        }else {
+        }else if (viewType==TYPE_HEADVIEW){
+            HeadViewHolder headViewHolder=new HeadViewHolder(mHeadView);
+            return headViewHolder;
+        } else{
             View progressView=LayoutInflater.from(mContext).inflate(R.layout.progress_item,parent,false);
             ProgressViewHolder progressViewHolder= new ProgressViewHolder(progressView);
             return progressViewHolder;
@@ -84,13 +91,13 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
           ((BaseViewHolder) holder).mItemView.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  mItemClickListener.onItemClick(v,position);
+                  mItemClickListener.onItemClick(v,position-1);
               }
           });
           ((BaseViewHolder) holder).mItemView.setOnLongClickListener(new View.OnLongClickListener() {
               @Override
               public boolean onLongClick(View v) {
-                  mLongItemClickListener.onLongItemClick(v,position);
+                  mLongItemClickListener.onLongItemClick(v,position-1);
                   return true;
               }
           });
@@ -99,10 +106,20 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position==getItemCount()-1){
+        if (mHeadView!=null){
+         if (position==getItemCount()-1){
             return TYPE_PROGRESS;
-        }else {
+          }else if (position==0){
+            return TYPE_HEADVIEW;
+           }else {
             return TYPE_ITEM;
+           }
+        }else {
+            if (position==getItemCount()-1){
+                return TYPE_PROGRESS;
+            }else {
+                return TYPE_ITEM;
+            }
         }
     }
 
@@ -141,6 +158,12 @@ public abstract class BaseLoadMoreAdapter2<T> extends RecyclerView.Adapter {
     }
     public class ProgressViewHolder extends RecyclerView.ViewHolder{
         public ProgressViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    public class HeadViewHolder extends RecyclerView.ViewHolder{
+        public HeadViewHolder(View itemView) {
             super(itemView);
         }
     }

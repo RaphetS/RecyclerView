@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".ui.DragSwipeActivity" />
         <activity android:name=".ui.PullRefreshActivity" />
-        <activity android:name=".ui.PullRefreshNoTipActivity"></activity>
+
+        <activity android:name=".ui.SupportHeadViewActivity"/>
     </application>
 
 </manifest>

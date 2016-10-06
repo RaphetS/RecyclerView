@@ -7,18 +7,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import org.raphets.demorecyclerview.R;
 import org.raphets.demorecyclerview.adapter.BaseLoadMoreAdapter2;
+import org.raphets.demorecyclerview.adapter.BaseLoadMoreHeaderAdapter;
 import org.raphets.demorecyclerview.adapter.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PullRefreshActivity extends AppCompatActivity {
+public class SupportHeadViewActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -46,6 +48,8 @@ public class PullRefreshActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         mAdapter=new MyAdapter(this,mRecyclerView,mDatas,R.layout.item);
         mRecyclerView.setLayoutManager(layoutManager);
+        View headView= LayoutInflater.from(this).inflate(R.layout.headview,mRecyclerView,false);
+        mAdapter.addHeadView(headView);
         mRecyclerView.setAdapter(mAdapter);
 
     }
@@ -59,17 +63,18 @@ public class PullRefreshActivity extends AppCompatActivity {
             }
         });
 
-        mAdapter.setOnLoadMoreListener(new BaseLoadMoreAdapter2.OnLoadMoreListener() {
+        mAdapter.setOnLoadMoreListener(new BaseLoadMoreHeaderAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 loadMore();
             }
         });
 
-        mAdapter.setOnItemClickListener(new BaseLoadMoreAdapter2.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new BaseLoadMoreHeaderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(getApplicationContext(),position+"",Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -129,7 +134,7 @@ public class PullRefreshActivity extends AppCompatActivity {
 
     }
 
-    class MyAdapter  extends BaseLoadMoreAdapter2<String>{
+    class MyAdapter  extends BaseLoadMoreHeaderAdapter<String> {
         public MyAdapter(Context mContext, RecyclerView recyclerView, List<String> mDatas, int mLayoutId) {
             super(mContext, recyclerView, mDatas, mLayoutId);
         }
